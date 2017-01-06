@@ -1,0 +1,32 @@
+﻿@model List<Adressbook.Models.Person>
+@{
+    ViewBag.Title = "View";
+}
+@{
+    var ajaxOptions = new AjaxOptions
+    {
+
+        Confirm = "Är du säker?",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "result"
+    
+
+    };
+}
+
+<div id="result">
+    @foreach (var item in Model)
+{
+    <ul>
+        <li>Name: @item.Name</li>
+        <li>Phone number: @item.PhoneNumber</li>
+        <li>City: @item.adress.City</li>
+        <li>Street: @item.adress.Street</li>
+        <li>Last updated: @item.adress.Updated.ToString()</li>
+        @Ajax.ActionLink("Delete", "Delete", "Person", new { @id = item.ID }, ajaxOptions)
+
+        @Html.ActionLink("Edit", "Edit", "Person", new { @id = item.ID }, null)
+    </ul>
+}
+</div>
